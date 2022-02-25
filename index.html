@@ -1,0 +1,674 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>COMP390 - Review of Multi-view 3D Deep Learning Techniques</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="7cc6f039-0360-47c9-8814-05db8ed14ada" class="page sans"><header><h1 class="page-title">COMP390 - Review of Multi-view 3D Deep Learning Techniques</h1></header><div class="page-body"><h1 id="25b45bcb-502d-4e08-a340-b5a023b22f3a" class="">Project Webpage</h1><p id="10cb4c86-c92c-43a2-9a71-27b164cdd646" class=""> <div class="indented"><p id="d37dd09d-758a-4d58-9fe5-c35b1a895bf4" class="">///</p></div></p><figure id="d0cd15cf-2034-4e4e-8aec-d6ff7da19127"><a href="https://github.com/kylelowryr/kylelowryr.github.io/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">GitHub - kylelowryr/kylelowryr.github.io</div><div class="bookmark-description">You can&#x27;t perform that action at this time. You signed in with another tab or window. You signed out in another tab or window. Reload to refresh your session. Reload to refresh your session.</div></div><div class="bookmark-href"><img src="https://github.com/favicon.ico" class="icon bookmark-icon"/>https://github.com/kylelowryr/kylelowryr.github.io/</div></div><img src="https://opengraph.githubassets.com/cf21cc9fa879d73e64cc76c3e0d7f4afbfd2588728a1940ea831305fe2a6c2df/kylelowryr/kylelowryr.github.io" class="bookmark-image"/></a></figure><p id="cfb61755-1cf0-4a4f-93a1-1fd7e0fb1608" class=""><a href="https://github.com/kylelowryr/kylelowryr.github.io/">https://github.com/kylelowryr/kylelowryr.github.io/</a></p><p id="5caf3108-ec90-44ff-93fa-435a5ff7689a" class=""><div class="indented"><p id="322b266b-4dfd-4d74-81f3-dfff7c73c55f" class="">///</p></div></p><p id="537cbece-fe54-456e-86c6-5ae1d9889b80" class=""><a href="https://kylelowryr.github.io/">https://kylelowryr.github.io/</a></p><p id="b4120fd7-b0f1-491d-a4fa-8db99ebcd629" class="">
+</p><h1 id="119842e4-9d44-433f-8b8d-e8aca613b388" class="">Introduction</h1><p id="0f771d29-d890-402b-ad6c-531ea7010074" class=""> <div class="indented"><p id="a32ff197-1bc5-46ed-a666-c2495d1cb4a1" class="">/// <div class="indented"><p id="1fbfd4a7-ed4a-475d-8b65-492195618cba" class="">/// <div class="indented"><p id="c6d9cdce-8660-484e-9e43-523134c5537f" class="">///</p></div></p></div></p></div></p><p id="60369b5b-7332-48c9-a7de-35e26a16f3c0" class="">
+</p><h1 id="53737e86-b3a3-4f2e-a733-941ce043465b" class="">Description</h1><p id="fe458ba7-591a-4b17-8a08-22e751c3c45d" class=""> <div class="indented"><p id="3cb74a7c-cb22-4c08-b781-3c13f168cefb" class=""> /// <div class="indented"><p id="32e9af7a-643b-4a68-9485-64daf4037c3d" class="">///<div class="indented"><p id="d41e9e38-7ed6-4794-8f38-7f99b087ae9f" class="">///</p></div></p></div></p></div></p><p id="e8201d26-13c2-4c51-b5da-ac52c51179a5" class="">
+</p><h1 id="df6fbf5e-0514-418e-bc31-38edcdf02364" class="">Datasets</h1><div id="b4e23bd0-83c2-409c-ac8d-9de0131246e6" class="column-list"><div id="a3b2c6f7-07c4-4e9c-b77b-7c39e8c5dc10" style="width:25%" class="column"><figure id="033e807d-b3c5-4efe-a480-10a0f880415a" class="block-color-blue link-to-page"><a href="COMP390%20-%20%20cd530/ModelNet%204%20033e8.html">ModelNet 40</a></figure></div><div id="d09498b3-0724-43bb-b528-ae8b02ae7a5c" style="width:75%" class="column"><p id="e805ee06-07c4-4126-b596-0719c2672202" class="">
+</p></div></div><div id="ea25fcb1-60b1-4fff-9750-86c641c74f0d" class="column-list"><div id="5807faa4-be96-4c7e-98f4-f1116f56df99" style="width:6.25%" class="column"><p id="1ccae551-7ed4-4871-92af-df97dba71fb2" class="">
+</p></div><div id="11d3247f-d8b7-4ed3-af35-d80dd5c4f0e4" style="width:93.75%" class="column"><p id="15960c16-f91e-4fa2-bceb-baae68fa09a4" class="">Description:<div class="indented"><p id="98f3189c-8851-47f4-94be-667c35420e15" class="">Princeton ModelNet Project</p></div></p><p id="27153342-17b3-4448-9e2d-e1ec011d849a" class="">Subset:<div class="indented"><p id="1d8292ac-68e4-4c68-ba6c-ac6b50406580" class="">ModelNet 10</p><p id="6bacd2bf-d4ba-429d-9234-d6d45d41fd1e" class="">ModelNet 40<div class="indented"><p id="cb3da326-5ebd-4729-979b-9801bf9e4bec" class="">ModelNet40 - 12 views</p><p id="16216ffe-1559-4621-9df4-22e2d0be4567" class="">ModelNet40 - 20 views w/ &amp; w/o shade<div class="indented"><p id="4575f68f-2ece-4ae7-bee7-7af093ec41f2" class="">
+</p></div></p></div></p></div></p></div></div><figure id="a731dfa0-e880-4b47-98ed-6bd38c1065ff" class="block-color-blue link-to-page"><a href="COMP390%20-%20%20cd530/ShapeNet%205%20a731d.html">ShapeNet 55</a></figure><p id="9695011c-a6d1-4bb6-8ffd-d43adb6bbae6" class=""> </p><div id="95c4e654-256b-47dc-9a3f-b4797056908f" class="column-list"><div id="08f4ae1f-6192-4a44-aa1a-b04894218881" style="width:6.25%" class="column"><p id="9165ed0e-dba9-4b0a-b845-9485dbcaac0f" class="">
+</p></div><div id="24b1dcae-84c0-4eb8-b654-b26847e9c232" style="width:93.75%" class="column"><p id="5c913528-5ee8-4d6c-93f3-7862c867ecd1" class="">Description:<div class="indented"><p id="4e431c2c-2076-48ab-a6a4-b96458ea9bc8" class="">/// <div class="indented"><p id="e28ce399-7b0d-4bd2-9c6b-3cb8402c778b" class="">/// <div class="indented"><p id="a1efb423-4c32-4362-9fea-81718c5c2db9" class="">///</p></div></p></div></p><p id="ebc11185-e996-4256-96d8-31540cee530c" class="">
+</p></div></p></div></div><h1 id="08072909-2f21-4158-8d2b-c6577499b4cf" class="">CNN Models</h1><div id="9f89e5f2-5ecd-4ed2-aa28-d238183be64d" class="column-list"><div id="fe8670ae-9110-4caf-b605-366933bddb4f" style="width:25%" class="column"><figure id="66fbf2a3-fc97-4001-91ac-2ab1c3751b0d" class="block-color-blue link-to-page"><a href="COMP390%20-%20%20cd530/MVCNN%2066fbf.html">MVCNN </a></figure></div><div id="e161ba0f-1301-4462-afa7-94c9e47cf1c0" style="width:75%" class="column"><p id="d66be463-e2e6-4d9d-afd7-f3dfcee45d62" class="">
+</p></div></div><div id="3a1f7847-3341-4646-b93a-49d250ba4a7b" class="column-list"><div id="f59f8296-b18c-4039-a6a0-eab3eaa8e421" style="width:6.25%" class="column"><p id="9db716d4-b1cd-475c-ba0d-3115968f8668" class="">
+</p></div><div id="34b2d17f-4237-4740-b926-be8d9f79f837" style="width:93.75%" class="column"><p id="b3db33da-5421-42c3-9086-78fe7d59ca03" class="">Description:<div class="indented"><p id="fbeae3a4-3ff6-4411-abec-e20ac372dff7" class="">/// <div class="indented"><p id="fc6de409-d822-429e-8703-47476a146a51" class="">///<div class="indented"><p id="1760110f-a2fe-4ba1-9446-cf61b2cf95ed" class="">/// </p></div></p></div></p></div></p></div></div><p id="c67a717b-163c-45d3-8493-4bcf2ee33042" class="">
+</p><div id="f4319a55-425e-4c78-89b7-583c65529845" class="column-list"><div id="715f0c2a-613b-483f-a6b3-58143b3da886" style="width:25%" class="column"><figure id="fba6adf8-aced-4bfb-a4d7-85e184a58013" class="block-color-blue link-to-page"><a href="COMP390%20-%20%20cd530/View-GCN%20fba6a.html">View-GCN</a></figure></div><div id="6ab1c850-5f6f-40ab-bbcb-b7daf525f38f" style="width:75%" class="column"><p id="21dbd2cc-d8cf-4f21-83e3-cf1c4ded5662" class="">
+</p></div></div><div id="a16042c7-7919-446b-85f7-1ee6029b7842" class="column-list"><div id="aca76e9c-5d96-4ed9-b476-6357aa074eb5" style="width:6.25%" class="column"><p id="324bcdd7-9885-49ea-bbf5-880b9db2f474" class="">
+</p></div><div id="643e57eb-195b-4aee-8eea-35fdcbda7ae0" style="width:93.75%" class="column"><p id="9c8a005c-bf57-4e1c-8585-578cca1669f9" class="">Description:<div class="indented"><p id="c6c51375-4159-4c96-b5b9-45c17853b0f8" class="">/// <div class="indented"><p id="99febdef-7450-4e1d-8a12-1e39490aafca" class="">/// <div class="indented"><p id="8bd745c1-0248-4e75-891e-296ff5154a71" class="">///</p></div></p></div></p></div></p></div></div><p id="7cc95ba3-4ded-429b-b439-8fab4a948a2d" class="">
+</p><p id="bb19daf5-6b4d-481f-a484-9541689f683e" class="">
+</p><h1 id="ea4ff5a0-b774-433c-a446-bd254b7d5b66" class="">Benchmark</h1><table id="6b41f7e8-2574-4233-a8f4-d72cbc1bfb14" class="simple-table"><thead><tr id="8958fb85-38fb-4795-a5d2-4584a82fb44f"><th id="g}aW" class="simple-table-header"> </th><th id="c|Rf" class="simple-table-header"> views</th><th id="YVjm" class="simple-table-header">placeholder</th><th id="fdZT" class="simple-table-header">  placeholder</th><th id="?JX^" class="simple-table-header"> placeholder</th><th id="yY\R" class="simple-table-header"> placeholder</th><th id="BSur" class="simple-table-header">placeholder</th><th id="CCMy" class="simple-table-header">placeholder</th><th id=":r;m" class="simple-table-header">placeholder</th><th id="fM|c" class="simple-table-header">placeholder</th><th id="X`&lt;|" class="simple-table-header">placeholder</th></tr></thead><tbody><tr id="9b44323a-9914-453f-98d9-8f445501683a"><td id="g}aW">MVCNN</td><td id="c|Rf">12</td><td id="YVjm"> /</td><td id="fdZT"> /</td><td id="?JX^"> /</td><td id="yY\R">/</td><td id="BSur">/</td><td id="CCMy">//</td><td id=":r;m">/</td><td id="fM|c">/</td><td id="X`&lt;|"></td></tr><tr id="634f11ea-caa6-4f13-a031-a7133b849d31"><td id="g}aW"> </td><td id="c|Rf"> /</td><td id="YVjm"> /</td><td id="fdZT"> /</td><td id="?JX^"> /</td><td id="yY\R">/</td><td id="BSur">///</td><td id="CCMy">/</td><td id=":r;m">/</td><td id="fM|c">//</td><td id="X`&lt;|"></td></tr><tr id="2cf5e563-1bf1-41a9-841f-9ed4d2e9f2c2"><td id="g}aW"> </td><td id="c|Rf"> /</td><td id="YVjm"> /</td><td id="fdZT"> /</td><td id="?JX^"> /</td><td id="yY\R">/</td><td id="BSur">/</td><td id="CCMy">/</td><td id=":r;m">/</td><td id="fM|c">/</td><td id="X`&lt;|"></td></tr><tr id="c9348946-5a0c-4d2c-a325-28b88d175c3e"><td id="g}aW"> </td><td id="c|Rf">20 w/o shade</td><td id="YVjm"> /</td><td id="fdZT"> /</td><td id="?JX^">/</td><td id="yY\R">/</td><td id="BSur">/</td><td id="CCMy">/</td><td id=":r;m">/</td><td id="fM|c">/</td><td id="X`&lt;|"></td></tr><tr id="327f1908-8e49-472c-b631-e8de1b659ffe"><td id="g}aW"> </td><td id="c|Rf"> /</td><td id="YVjm"> /</td><td id="fdZT"> /</td><td id="?JX^"> /</td><td id="yY\R">//</td><td id="BSur">/</td><td id="CCMy">/</td><td id=":r;m">/</td><td id="fM|c">/</td><td id="X`&lt;|"></td></tr><tr id="d5bc5dca-c784-4b79-8760-21ed517bf882"><td id="g}aW"> </td><td id="c|Rf"> /</td><td id="YVjm"> /</td><td id="fdZT"> /</td><td id="?JX^">/</td><td id="yY\R">/</td><td id="BSur">/</td><td id="CCMy">/</td><td id=":r;m">/</td><td id="fM|c">/</td><td id="X`&lt;|"></td></tr><tr id="ecd3493e-446f-4f64-95db-3de18ff1df8b"><td id="g}aW"> </td><td id="c|Rf">20 w/ shade</td><td id="YVjm"> /</td><td id="fdZT"> /</td><td id="?JX^">/</td><td id="yY\R">/</td><td id="BSur">///</td><td id="CCMy">/</td><td id=":r;m">///</td><td id="fM|c">/</td><td id="X`&lt;|"></td></tr><tr id="5202d4ce-2d2e-46b9-875f-50bc8e35d700"><td id="g}aW"> </td><td id="c|Rf"> /</td><td id="YVjm"> /</td><td id="fdZT"> /</td><td id="?JX^">/</td><td id="yY\R">/</td><td id="BSur">/</td><td id="CCMy">//</td><td id=":r;m">/</td><td id="fM|c">/</td><td id="X`&lt;|"></td></tr><tr id="5d8c4a89-2553-4bdd-aac8-c08cd2a10916"><td id="g}aW"> </td><td id="c|Rf"> /</td><td id="YVjm"> /</td><td id="fdZT"> /</td><td id="?JX^">/</td><td id="yY\R">/</td><td id="BSur">/</td><td id="CCMy">/</td><td id=":r;m">/</td><td id="fM|c">//</td><td id="X`&lt;|"></td></tr><tr id="27e8317c-f501-47c4-848a-7c1134c1aa11"><td id="g}aW">View-GCN</td><td id="c|Rf"> /</td><td id="YVjm"> /</td><td id="fdZT"> /</td><td id="?JX^">/</td><td id="yY\R">/</td><td id="BSur">/</td><td id="CCMy">/</td><td id=":r;m">/</td><td id="fM|c">/</td><td id="X`&lt;|"></td></tr><tr id="dd795b84-2383-4c13-a804-d2d2ef16f17b"><td id="g}aW"> </td><td id="c|Rf"> /</td><td id="YVjm"> /</td><td id="fdZT"> /</td><td id="?JX^">/</td><td id="yY\R">/</td><td id="BSur">/</td><td id="CCMy">/</td><td id=":r;m">/</td><td id="fM|c">/</td><td id="X`&lt;|"></td></tr></tbody></table><p id="1214ed6a-c24f-42c7-a744-674ee93d27b7" class="">
+</p><h1 id="ebeaad84-9753-4a8e-ab84-5de2cc857c12" class="">Finding the contribution of views</h1><p id="64fb2b5d-d833-4d16-b92a-c9b080155d57" class="">See the following page with specific benchmark and analysis</p><figure id="37c3afb0-bd92-4a4a-b92a-fd7751328808" class="block-color-blue link-to-page"><a href="COMP390%20-%20%20cd530/Contributi%2037c3a.html">Contribution of views</a></figure><figure id="cd530091-138d-485e-86aa-d3a4449b58ff" class="image"><a href="COMP390%20-%20%20cd530/pcTaF--rank-of-views-_(1).png"><img style="width:1272px" src="COMP390%20-%20%20cd530/pcTaF--rank-of-views-_(1).png"/></a></figure><figure id="ddfc41a3-b953-480e-b786-9c474c04ce87" class="image"><a href="COMP390%20-%20%20cd530/test.jpg"><img style="width:640px" src="COMP390%20-%20%20cd530/test.jpg"/></a></figure><h1 id="246c801d-fc00-46a5-b45c-b48e388037b4" class="">Tools using</h1><p id="10e72e90-6343-4d8f-a5d9-eaca7474071e" class="">Modules:<div class="indented"><p id="99844382-7b46-432d-946c-6f27a5ea8f16" class="">Pytorch</p><p id="b0ca3fc0-567e-43d4-b28e-7afa3c76356a" class="">Python<div class="indented"><p id="979ef0e1-ddfd-4718-9708-a3b705a21225" class="">numpy, pandas, matplotlib, seaborn</p></div></p></div></p><p id="8c4e3205-6f09-4f7d-8192-1c5310b5303a" class="">Tools:<div class="indented"><p id="ef46bc01-4237-4972-93d6-9f82e9e557ac" class="">Blender</p><p id="7f3d5824-336b-4ee4-8ba7-654453e8da68" class="">/// <div class="indented"><p id="f47e002b-5ffd-42c6-8c22-444972f77191" class="">/// <div class="indented"><p id="e6a457ad-78f8-46c7-8ff9-9dddda205662" class="">///</p></div></p></div></p></div></p><h1 id="c6df77a4-c619-4099-8711-e17077a376ae" class="">Reference</h1><p id="d99c1fe7-f591-436e-b002-446709e2939a" class="">/// <div class="indented"><p id="7bf8e131-f54c-4200-9b3f-b9f961c0f868" class="">/// <div class="indented"><p id="906cdc08-1720-4ae0-aef1-498b066e46f1" class="">/// </p></div></p></div></p><p id="c949032e-6bcd-4d62-a858-c051f30382bf" class="">
+</p></div></article></body></html>
