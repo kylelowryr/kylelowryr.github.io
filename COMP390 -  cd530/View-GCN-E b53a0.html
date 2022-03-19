@@ -1,0 +1,657 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>View-GCN-Epoch1-NoShade-W-(w/)Weights #5</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="b53a000a-fce1-4451-ab05-65fd9fb03e23" class="page sans"><header><h1 class="page-title">View-GCN-Epoch1-NoShade-W-(w/)Weights #5</h1></header><div class="page-body"><table id="941038f3-8c4a-4852-ac39-8bdae5557f5f" class="simple-table"><tbody><tr id="151ee912-41b7-4b99-8553-8721d6714b3f"><td id="pggm"></td><td id="izH]"></td><td id="vU&gt;u"></td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="7fb1ab69-a2e9-4fa2-92aa-d2f957164c81"><td id="pggm"></td><td id="izH]"></td><td id="vU&gt;u"></td><td id="kAzX">threshold&gt;0.75</td><td id="X|hq"></td></tr><tr id="a7d1e7cf-1167-433c-aa87-a2b96e4e27cc"><td id="pggm"></td><td id="izH]">Front</td><td id="vU&gt;u">0 - airplane</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="9ad53512-160e-483f-91b1-4d33a5279638"><td id="pggm"></td><td id="izH]"> -F</td><td id="vU&gt;u">1 - bathtub</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="7de5dc5c-8cec-44d1-aa1e-03b6e83b6a38"><td id="pggm"></td><td id="izH]"> - F</td><td id="vU&gt;u">2 - bed</td><td id="kAzX">5, 11, 15</td><td id="X|hq"></td></tr><tr id="743288f9-eed6-4b31-b606-bf706b61c2a6"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">3 - bench</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="a1ca679c-32e0-4438-b68d-379bb197cabf"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">4 - bookshelf</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="b19f4184-c706-4ba9-b7ff-d4a8e38b1a47"><td id="pggm"></td><td id="izH]"> no</td><td id="vU&gt;u">5 - bottle</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="e756ec19-d00b-4f15-97ab-c8279e0fd6d0"><td id="pggm"></td><td id="izH]">no</td><td id="vU&gt;u">6 - bowl</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="0a618bc8-f642-4d61-9d16-1deb14fed28c"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">7 - car</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="41a96fc5-7323-4bbc-a9a2-c15fbcdcf96c"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">8 - chair</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="38cfc219-3903-4db1-8e61-dc0a608a284c"><td id="pggm"></td><td id="izH]">No</td><td id="vU&gt;u">9 - cone</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="a4bc72cf-391c-453a-ba76-83c16943f58f"><td id="pggm"></td><td id="izH]">-</td><td id="vU&gt;u">10 - cup</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="bb775b98-f910-41d9-9655-31ee3f958311"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">11 - curtain</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="987feaba-3937-4fc8-b9dc-076e1939757f"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">12 - desk</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="cdfb7ae5-7023-4a85-b027-d0cc2be1badf"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">13 - door</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="79a33024-71e0-4c93-8503-2a6d8ca75477"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">14 - dresser</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="ff27a572-0800-460f-8488-3a0f17527b85"><td id="pggm"></td><td id="izH]">no</td><td id="vU&gt;u">15 - flower_pot</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="549c2fb4-b2b7-468f-9986-fd481799260e"><td id="pggm"></td><td id="izH]">no</td><td id="vU&gt;u">16 - glass_box</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="a598cf81-cda7-4f70-bb1f-d00868e3d69a"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">17 - guitar</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="23ab9116-efe4-46f1-965c-0565d86f10cd"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">18 - keyboard</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="21410643-3636-4df2-b5fc-ea3f0cfa565b"><td id="pggm"></td><td id="izH]">no</td><td id="vU&gt;u">19 - lamp</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="b30c80a0-abe9-4cd4-a753-5ef70816d408"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">20 - laptop</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="1dca9292-12cf-42d5-ae81-a3603199caeb"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">21 - mantel</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="e6cfb0bb-687c-4a1d-b717-1516c68afecd"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">22 - monitor</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="9bec7a30-466a-4723-ae1c-a847705b76ef"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">23 - night_stand</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="23cc3adf-9ad2-4f35-b97e-d04e2abcc2a2"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">24 - person</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="3eab051c-ceab-498d-8dc9-36dc593d4d84"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">25 - piano</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="50784904-5164-415c-98c9-d616957a5b03"><td id="pggm"></td><td id="izH]">no</td><td id="vU&gt;u">26 - plant</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="9fbfc44b-d020-409c-80bf-fde3eee62750"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">27 - radio</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="5e30b225-26a1-4369-8e35-53f7d48e748a"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">28 - range_hood</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="adb29dad-08a7-4d74-aa2c-f64768931fdb"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">29 - sink</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="5e289620-8bc7-40d6-954a-8857dfbef045"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">30 - sofa</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="e6c37c2d-35fb-471d-99df-7100123262ab"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">31 - stairs</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="7a7bcec6-93a9-4426-ad62-720eac1280d2"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">32 - stool</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="16b77db5-e6d7-46e1-8c6f-e993517bcd96"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">33 - table</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="796b13c3-5212-4654-a993-359b4b3b898e"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">34 - tent</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="4a973765-f0ad-464a-a714-26d509a0d500"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">35 - toilet</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="9dcb5ac0-3d33-4acf-8f10-96c104613a15"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">36 - tv_stand</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="197c53a5-c258-434e-9e62-8716df49532d"><td id="pggm"></td><td id="izH]">no</td><td id="vU&gt;u">37 - vase</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="fd2803c5-0cd9-4ca6-94c5-9e31e58e9fbd"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">38 - wardrobe</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="b42da570-ac97-4b2b-ba5a-02be58cd1d61"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">39 - xbox</td><td id="kAzX"></td><td id="X|hq"></td></tr></tbody></table></div></article></body></html>
