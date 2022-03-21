@@ -1,0 +1,658 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title># 3_2 View-GCN - Epoch1 - NoShade - W - (w/)Weights - SingleView</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="4ced0a3c-c1ef-443f-8183-5fbf389963c6" class="page sans"><header><h1 class="page-title"># 3_2 View-GCN - Epoch1 - NoShade - W - (w/)Weights - SingleView</h1></header><div class="page-body"><table id="0be98396-6391-4d7c-9089-998ecc1348f0" class="simple-table"><tbody><tr id="12d0e32d-60bf-47a6-a821-be9de2b4ff16"><td id="izH]"></td><td id="vU&gt;u"></td><td id="kAzX"></td><td id="X|hq"></td><td id="J{SP"></td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="e672289f-e3d5-455e-8a16-c5afa26555ce"><td id="izH]"></td><td id="vU&gt;u"></td><td id="kAzX">threshold&gt;0.75</td><td id="X|hq">threshold&gt;0.5</td><td id="J{SP">threshold&gt;0</td><td id="nmQ}">Visual</td><td id="g}Gn"></td></tr><tr id="69f69d7b-1a0f-4a56-af9d-f4d1107da816"><td id="izH]">Front</td><td id="vU&gt;u">0 - airplane</td><td id="kAzX">[13]</td><td id="X|hq">[13]</td><td id="J{SP">[9, 13, 17]</td><td id="nmQ}"><mark class="highlight-gray">[   1,   2,   3,   4,   5,   6,   7,   8,   9,  10 ]  
+[ 11, 12, 13, 14, 15, 16, 17, 18, </mark><mark class="highlight-red">19</mark><mark class="highlight-gray">,  20 ] </mark></td><td id="g}Gn"></td></tr><tr id="72272016-9bef-43ef-abb9-980d45945c80"><td id="izH]">NO</td><td id="vU&gt;u">1 - bathtub</td><td id="kAzX">[11]</td><td id="X|hq">[5, 11]</td><td id="J{SP">[5, 9, 11, 13]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="8d2d09a3-1905-4ad6-876e-c001592cba67"><td id="izH]">F</td><td id="vU&gt;u">2 - bed</td><td id="kAzX">[9]</td><td id="X|hq">[9, 11]</td><td id="J{SP">[3, 7, 9, 11, 13, 14, 16, 18]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="d33a42fb-d8d7-47d7-8213-1cc0223a0f62"><td id="izH]">F</td><td id="vU&gt;u">3 - bench</td><td id="kAzX">[11]</td><td id="X|hq">[11]</td><td id="J{SP">[1, 2, 3, 4, 5, 6, 8, 9, 11, 12, 13, 15, 17, 20]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="989712be-ebfe-441d-ae21-48c9cb53ff64"><td id="izH]">F</td><td id="vU&gt;u">4 - bookshelf</td><td id="kAzX">[9, 17]</td><td id="X|hq">[9, 13, 17]</td><td id="J{SP">[9, 10, 11, 13, 17]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="fdb08ca2-3069-4d84-a4d4-240a2648f7c6"><td id="izH]">NO</td><td id="vU&gt;u">5 - bottle</td><td id="kAzX">[9]</td><td id="X|hq">[9, 13]</td><td id="J{SP">[1, 2, 3, 6, 8, 9, 11, 13, 15, 16, 17, 19, 20]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="1cc96e9d-17bd-44a9-8aaa-70efa7898e7c"><td id="izH]">NO</td><td id="vU&gt;u">6 - bowl</td><td id="kAzX">[9]</td><td id="X|hq">[5, 9, 17]</td><td id="J{SP">[5, 6, 9, 14, 17]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="0f94021c-dd88-4bc6-a534-653335399731"><td id="izH]">F</td><td id="vU&gt;u">7 - car</td><td id="kAzX">[9, 13]</td><td id="X|hq">[9, 13]</td><td id="J{SP">[9, 10, 11, 13, 14, 15, 16, 17, 19]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="d6aee9f5-dee2-498a-a77b-8af8320f8925"><td id="izH]">F</td><td id="vU&gt;u">8 - chair</td><td id="kAzX">[9, 13]</td><td id="X|hq">[9, 13]</td><td id="J{SP">[1, 4, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 20]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="83148a06-2a74-48c6-af42-2a88ce3bd273"><td id="izH]">NO</td><td id="vU&gt;u">9 - cone</td><td id="kAzX">[9]</td><td id="X|hq">[9]</td><td id="J{SP">[2, 5, 7, 9, 11, 13, 19, 20]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="d1c19b5a-2c3f-4f49-b746-372d628f47f9"><td id="izH]">NO</td><td id="vU&gt;u">10 - cup</td><td id="kAzX">[9]</td><td id="X|hq">[9]</td><td id="J{SP">[1, 4, 7, 8, 9, 11, 19]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="fa95289e-5038-4a58-bd33-5ab5fa0bac3c"><td id="izH]">F</td><td id="vU&gt;u">11 - curtain</td><td id="kAzX">[9, 11, 12]</td><td id="X|hq">[6, 7, 9, 10, 11, 12, 13, 16, 19, 20]</td><td id="J{SP">[1, 2, 3, 4, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="f2a9c74c-87d9-417e-a1dd-d3f5c3216d44"><td id="izH]">F</td><td id="vU&gt;u">12 - desk</td><td id="kAzX">[9]</td><td id="X|hq">[9]</td><td id="J{SP">[9, 11, 12, 13, 14, 15, 17, 20]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="7e2a1651-90d3-4873-b1f4-12a9208dde96"><td id="izH]">F</td><td id="vU&gt;u">13 - door</td><td id="kAzX">[9, 13]</td><td id="X|hq">[9, 13]</td><td id="J{SP">[15]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="f71de479-dd6b-4d8e-809f-7efdd34c6041"><td id="izH]">F</td><td id="vU&gt;u">14 - dresser</td><td id="kAzX">[9, 13]</td><td id="X|hq">[9, 13, 17]</td><td id="J{SP">[3, 9, 11, 12, 13, 15, 17, 18, 20]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="917e7da3-bae7-4fe2-a562-b88ec470179d"><td id="izH]">NO</td><td id="vU&gt;u">15 - flower_pot</td><td id="kAzX">[1, 3, 7, 8, 11]</td><td id="X|hq">[1, 3, 4, 6, 7, 8, 11, 13, 16]</td><td id="J{SP">[1, 2, 3, 4, 5, 6, 7, 8, 11, 12, 13, 14, 15, 16, 17, 19, 20]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="62e1c74d-87d5-4ae8-b67c-774f3a9c4d3c"><td id="izH]">NO</td><td id="vU&gt;u">16 - glass_box</td><td id="kAzX">[11]</td><td id="X|hq">[11]</td><td id="J{SP">[1, 3, 4, 5, 8, 9, 10, 11, 19, 20]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="c234226c-9b18-4a45-9b5d-0e00201187d5"><td id="izH]">F</td><td id="vU&gt;u">17 - guitar</td><td id="kAzX">[7, 20]</td><td id="X|hq">[2, 7, 20]</td><td id="J{SP">[2, 5, 7, 8, 14, 17, 20]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="38639c44-f212-4e79-aa96-1c74b99bbc96"><td id="izH]">F</td><td id="vU&gt;u">18 - keyboard</td><td id="kAzX">[5]</td><td id="X|hq">[5]</td><td id="J{SP">[5, 9, 10]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="1dad3d27-226f-44fd-94d7-82381d6d60da"><td id="izH]">NO</td><td id="vU&gt;u">19 - lamp</td><td id="kAzX">[9]</td><td id="X|hq">[9]</td><td id="J{SP">[1, 3, 4, 6, 7, 8, 9, 11, 13, 17, 20]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="997e66b2-a661-4882-9992-e293c6e3490c"><td id="izH]">F</td><td id="vU&gt;u">20 - laptop</td><td id="kAzX">[13]</td><td id="X|hq">[13]</td><td id="J{SP">[13]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="8bf5a4b8-548a-4457-92c1-bcd23190f78a"><td id="izH]">F</td><td id="vU&gt;u">21 - mantel</td><td id="kAzX">[17]</td><td id="X|hq">[17]</td><td id="J{SP">[6, 17]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="cdbe07b6-92a0-4bcd-b6cc-338586ff3bbc"><td id="izH]">F</td><td id="vU&gt;u">22 - monitor</td><td id="kAzX">[9]</td><td id="X|hq">[9]</td><td id="J{SP">[1, 7, 9, 14, 17]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="ee33625c-adba-4fe0-be06-ad561b5161cc"><td id="izH]">F</td><td id="vU&gt;u">23 - night_stand</td><td id="kAzX">[9, 13]</td><td id="X|hq">[9, 13]</td><td id="J{SP">[1, 2, 3, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="87f14b88-4cfa-4d6d-b141-81cf8024bc54"><td id="izH]">F</td><td id="vU&gt;u">24 - person</td><td id="kAzX">[9]</td><td id="X|hq">[9]</td><td id="J{SP">[5, 8, 9, 13, 14, 15, 16]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="886cb903-c5e8-485a-bd43-058d0b5ae01a"><td id="izH]">F</td><td id="vU&gt;u">25 - piano</td><td id="kAzX">[11]</td><td id="X|hq">[11]</td><td id="J{SP">[5, 7, 11, 13, 20]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="e78a5a8f-f09c-4da3-9c3a-c2a1f73e0f8a"><td id="izH]">NO</td><td id="vU&gt;u">26 - plant</td><td id="kAzX">[9]</td><td id="X|hq">[9, 13]</td><td id="J{SP">[5, 9, 10, 13, 17]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="d58c6c44-c861-4974-af22-4abde9fa6ec1"><td id="izH]">F</td><td id="vU&gt;u">27 - radio</td><td id="kAzX">[9]</td><td id="X|hq">[9]</td><td id="J{SP">[7, 9, 11, 18]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="dc4ec474-3bf3-4415-b395-eae510306333"><td id="izH]">F</td><td id="vU&gt;u">28 - range_hood</td><td id="kAzX">[9]</td><td id="X|hq">[9, 17]</td><td id="J{SP">[3, 5, 6, 8, 9, 11, 12, 13, 17, 20]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="e8cc37de-f1e7-4384-a5f4-3b959c3a01a8"><td id="izH]">F</td><td id="vU&gt;u">29 - sink</td><td id="kAzX">[9]</td><td id="X|hq">[9, 11]</td><td id="J{SP">[4, 5, 7, 8, 9, 11, 13]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="33b59cad-a7c4-408a-ae3c-57cd77f2d920"><td id="izH]">F</td><td id="vU&gt;u">30 - sofa</td><td id="kAzX">[9]</td><td id="X|hq">[9]</td><td id="J{SP">[2, 5, 9, 10, 11, 13, 14, 16, 17, 18]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="559b9e75-a4d7-4fdc-ba98-f2ccbc14bb1b"><td id="izH]">F</td><td id="vU&gt;u">31 - stairs</td><td id="kAzX">[11]</td><td id="X|hq">[11]</td><td id="J{SP">[1, 6, 11]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="6b645f7b-98c5-4e03-b104-587b1dcb30be"><td id="izH]">F</td><td id="vU&gt;u">32 - stool</td><td id="kAzX">[15]</td><td id="X|hq">[15]</td><td id="J{SP">[15, 18, 19]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="de6e871f-e6ae-4051-a054-a143eba39ee1"><td id="izH]">F</td><td id="vU&gt;u">33 - table</td><td id="kAzX">[2]</td><td id="X|hq">[2]</td><td id="J{SP">[2, 4, 10]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="01d1b0ec-a719-44eb-9156-94d3eb6c9ec8"><td id="izH]">F</td><td id="vU&gt;u">34 - tent</td><td id="kAzX">[5, 10, 12, 17]</td><td id="X|hq">[5, 8, 10, 11, 12, 17]</td><td id="J{SP">[2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="8d328c3c-4341-4b9c-b1cb-6dc00ae2e437"><td id="izH]">F</td><td id="vU&gt;u">35 - toilet</td><td id="kAzX">[9]</td><td id="X|hq">[9]</td><td id="J{SP">[1, 2, 3, 5, 6, 9, 11, 12, 13, 14, 15, 18, 19]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="b71e2acc-c502-453d-a9ab-45adf4a60b68"><td id="izH]">F</td><td id="vU&gt;u">36 - tv_stand</td><td id="kAzX">[9]</td><td id="X|hq">[9]</td><td id="J{SP">[1, 2, 4, 5, 6, 9, 10, 12, 17, 19]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="26fc6669-1b99-4faa-aab9-cfe390613b51"><td id="izH]">NO</td><td id="vU&gt;u">37 - vase</td><td id="kAzX">[17]</td><td id="X|hq">[4, 17]</td><td id="J{SP">[3, 4, 5, 8, 13, 14, 17, 19]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="82fb0653-5731-4765-8caf-925930a0c8c2"><td id="izH]">F</td><td id="vU&gt;u">38 - wardrobe</td><td id="kAzX">[6, 13]</td><td id="X|hq">[5, 6, 13]</td><td id="J{SP">[2, 5, 6, 13, 16, 17]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr><tr id="7cd10df4-eb0c-43c3-94dd-6cd00d1cf5e7"><td id="izH]">F</td><td id="vU&gt;u">39 - xbox</td><td id="kAzX">[9]</td><td id="X|hq">[9]</td><td id="J{SP">[3, 4, 5, 9, 10, 11, 13, 16, 17, 18, 20]</td><td id="nmQ}"></td><td id="g}Gn"></td></tr></tbody></table><table id="6b24f0c2-b2a1-4bf7-8217-a280f21bb69c" class="simple-table"><tbody><tr id="45187902-a7c0-4246-8436-47ea1f13cb91"><td id="nd?h">&gt;0.75</td><td id="f^_W">9,13,11</td></tr><tr id="f7252a46-e961-42d6-ba5b-2434a288cab7"><td id="nd?h">&gt;0.5</td><td id="f^_W">9,13,11</td></tr><tr id="5ea7cd8c-c078-46bf-bbbf-f96539e48b0e"><td id="nd?h"></td><td id="f^_W"></td></tr></tbody></table><table id="f6692e99-e520-4270-84bc-948577acdb64" class="simple-table"><tbody><tr id="a0f3e469-1147-4b25-8be6-aefabf32593c"><td id="pggm"></td><td id="izH]"></td><td id="vU&gt;u"></td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="8b62716d-cb50-408f-a0fd-4b58e148f3ad"><td id="pggm"></td><td id="izH]"></td><td id="vU&gt;u"></td><td id="kAzX">threshold&gt;0.75</td><td id="X|hq"></td></tr><tr id="ea4107ae-5f57-4bfb-b6e2-c3b5864d8e0a"><td id="pggm"></td><td id="izH]">Front</td><td id="vU&gt;u">0 - airplane</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="5033792a-dd16-4ec9-969e-692276e72474"><td id="pggm"></td><td id="izH]"> -F</td><td id="vU&gt;u">1 - bathtub</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="8d9b07d6-ddb6-4639-8906-18a3a6931350"><td id="pggm"></td><td id="izH]"> - F</td><td id="vU&gt;u">2 - bed</td><td id="kAzX">5, 11, 15</td><td id="X|hq"></td></tr><tr id="01167ccf-6bad-42c4-91b6-655e5870a655"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">3 - bench</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="cdf7852f-77bb-4284-a057-07116f1bc3c7"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">4 - bookshelf</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="eae71af6-1cce-4453-a334-ea9e156e0e01"><td id="pggm"></td><td id="izH]"> no</td><td id="vU&gt;u">5 - bottle</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="f52f2f75-84e5-491a-91e7-eaf7096d901a"><td id="pggm"></td><td id="izH]">no</td><td id="vU&gt;u">6 - bowl</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="cf66af96-11d5-4b4d-b696-0f18adda53dd"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">7 - car</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="cd2c734f-b008-474b-a322-0090dc0239c6"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">8 - chair</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="8ae4085d-4fe0-47c1-8814-36366372f69c"><td id="pggm"></td><td id="izH]">No</td><td id="vU&gt;u">9 - cone</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="15f848cf-1f32-4c69-9c12-1e0b21e619ff"><td id="pggm"></td><td id="izH]">-</td><td id="vU&gt;u">10 - cup</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="f44511b5-1d23-4683-ae35-8caef9d56cdf"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">11 - curtain</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="a432954b-0376-4cfa-987d-71eaeec7a930"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">12 - desk</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="2020f62c-d749-4e2c-b6e7-e968623ed26e"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">13 - door</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="f952bf45-dba2-4a87-91a9-d024897595a4"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">14 - dresser</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="a62d5954-de7e-46e0-b8e3-099986f9b071"><td id="pggm"></td><td id="izH]">no</td><td id="vU&gt;u">15 - flower_pot</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="44baed00-aa9e-417e-b454-880bfd6ca656"><td id="pggm"></td><td id="izH]">no</td><td id="vU&gt;u">16 - glass_box</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="d990632e-e74e-46c9-9dc8-69075e906e7b"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">17 - guitar</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="74932573-b029-40a1-a553-931fe61fb28c"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">18 - keyboard</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="89fde8b6-9e41-4c02-9dd7-3798700a09db"><td id="pggm"></td><td id="izH]">no</td><td id="vU&gt;u">19 - lamp</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="7a70618a-fe63-43c1-a722-e967ded2e21a"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">20 - laptop</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="7479dd13-b230-40fc-b9bb-1700b1f29545"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">21 - mantel</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="56b5c527-491b-4921-a954-df1a232b4fb4"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">22 - monitor</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="ba933435-6799-4ea9-b76d-47e46449413b"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">23 - night_stand</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="6ec37da9-8f55-4cc9-bf10-a178682ddec9"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">24 - person</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="80d8e1c6-9c53-48bd-99cc-9398c3e97af0"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">25 - piano</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="a000ab28-8624-4968-9359-21b80db786f7"><td id="pggm"></td><td id="izH]">no</td><td id="vU&gt;u">26 - plant</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="46950b06-29fb-4877-959e-b352eab02ae1"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">27 - radio</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="7637fc7d-af52-417e-904e-e4d91eb4eb6f"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">28 - range_hood</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="f552ce2f-e4c9-418c-bc4b-1af917c99922"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">29 - sink</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="66ef24d2-207c-4c5f-ba73-b93f16d6819a"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">30 - sofa</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="b6de28e0-6dbf-455c-8919-abaa4a122f59"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">31 - stairs</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="c2a4e55d-d54e-49f1-8410-40fb1e9fba03"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">32 - stool</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="dfd6b8b8-ecc2-4969-be15-31c586386eaf"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">33 - table</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="5574c986-f043-4e03-98eb-9b53b8922a46"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">34 - tent</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="90517414-e733-42ce-9afc-1eeedf75c47f"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">35 - toilet</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="54d25ed4-bf0f-413b-810d-22e34fab1c81"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">36 - tv_stand</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="720de6e3-7a46-44c9-bb02-1da5b810c868"><td id="pggm"></td><td id="izH]">no</td><td id="vU&gt;u">37 - vase</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="40201298-7b66-47f6-87ad-0ad164111e14"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">38 - wardrobe</td><td id="kAzX"></td><td id="X|hq"></td></tr><tr id="13ec0659-99e5-4a57-a5e5-7fcab42fdffb"><td id="pggm"></td><td id="izH]">F</td><td id="vU&gt;u">39 - xbox</td><td id="kAzX"></td><td id="X|hq"></td></tr></tbody></table><p id="9fc1eef3-5450-493e-860c-31592c5d1c0f" class="">[1]</p></div></article></body></html>
