@@ -1,0 +1,658 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>1.2 MVCNN - Epoch1 - NoShade - W - (w/)Weights - SingleView</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 1400px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="8980c575-1f8d-47f0-8d01-4d3545fc73cc" class="page serif"><header><h1 class="page-title">1.2 MVCNN - Epoch1 - NoShade - W - (w/)Weights - SingleView</h1></header><div class="page-body"><p id="5f0e1527-c4a6-4286-900e-c13db2b85a83" class=""><a href="https://kylelowryr.github.io/">https://kylelowryr.github.io/</a></p><hr id="ebc41728-fe26-4749-b2cd-c8b1b2cb84c0"/><h2 id="17bf7e6c-2e40-4c4e-9f8d-8d270bc407d1" class="">Table 1. View Contribution with Weights over different thresholds</h2><table id="9eeb0605-b791-4440-a577-d9b5489a8d57" class="simple-table"><thead><tr id="2529bea4-c6fc-4b32-a3c5-eedf582c84c0"><th id="vU&gt;u" class="simple-table-header"></th><th id="izH]" class="simple-table-header"></th><th id="kAzX" class="simple-table-header">threshold&gt;0.75</th><th id="X|hq" class="simple-table-header">threshold&gt;0.5</th><th id="J{SP" class="simple-table-header">threshold&gt;0</th><th id="nmQ}" class="simple-table-header">Visual</th></tr></thead><tbody><tr id="8947a5b5-bcf3-4ebd-8b78-d609b57c44a4"><td id="vU&gt;u">0 - airplane</td><td id="izH]">F</td><td id="kAzX">[8, 12]</td><td id="X|hq">[3, 5, 6, 8, 12, 18]</td><td id="J{SP">[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]</td><td id="nmQ}"><mark class="highlight-gray">[   1,   2,   3,   4,   5,   6,   7,   8,   9,  10 ]  
+[ 11, 12, 13, 14, 15, 16, 17, 18, </mark><mark class="highlight-red">19</mark><mark class="highlight-gray">,  20 ] </mark></td></tr><tr id="c872ed29-116a-4b3a-87ce-d47861db7a99"><td id="vU&gt;u">1 - bathtub</td><td id="izH]">NO</td><td id="kAzX">[6]</td><td id="X|hq">[6, 10, 11]</td><td id="J{SP">[3, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 20]</td><td id="nmQ}"></td></tr><tr id="2fcf9159-4609-4136-8040-8972afed4dc6"><td id="vU&gt;u">2 - bed</td><td id="izH]">F</td><td id="kAzX">[2]</td><td id="X|hq">[2]</td><td id="J{SP">[2, 3, 5, 6, 7, 9, 10, 11, 12, 13, 15, 16, 17, 18, 19]</td><td id="nmQ}"></td></tr><tr id="7720a0dd-ca51-4384-a2ec-4083b7156cb8"><td id="vU&gt;u">3 - bench</td><td id="izH]">F</td><td id="kAzX">[12]</td><td id="X|hq">[12]</td><td id="J{SP">[11, 12]</td><td id="nmQ}"></td></tr><tr id="339e014d-ea51-4f67-bcba-73586291a007"><td id="vU&gt;u">4 - bookshelf</td><td id="izH]">F</td><td id="kAzX">[2]</td><td id="X|hq">[2]</td><td id="J{SP">[2, 3, 6]</td><td id="nmQ}"></td></tr><tr id="af9d86c8-5708-4288-8aaf-ddb0038e6e1d"><td id="vU&gt;u">5 - bottle</td><td id="izH]">NO</td><td id="kAzX">[1]</td><td id="X|hq">[1]</td><td id="J{SP">[1]</td><td id="nmQ}"></td></tr><tr id="b2942a31-8db3-405c-9709-0dcd211494ca"><td id="vU&gt;u">6 - bowl</td><td id="izH]">NO</td><td id="kAzX">[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20]</td><td id="X|hq">[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]</td><td id="J{SP">[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]</td><td id="nmQ}"></td></tr><tr id="8331db46-3893-49c6-bc55-94bda2fe8713"><td id="vU&gt;u">7 - car</td><td id="izH]">F</td><td id="kAzX">[2]</td><td id="X|hq">[2, 4, 5, 8, 10, 18, 19, 20]</td><td id="J{SP">[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20]</td><td id="nmQ}"></td></tr><tr id="f60e37c4-3027-4c3e-aeb8-24a44d83e862"><td id="vU&gt;u">8 - chair</td><td id="izH]">F</td><td id="kAzX">[2]</td><td id="X|hq">[2, 6, 11]</td><td id="J{SP">[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]</td><td id="nmQ}"></td></tr><tr id="da2cd526-8a39-4507-bf50-67940c28563d"><td id="vU&gt;u">9 - cone</td><td id="izH]">NO</td><td id="kAzX">[16]</td><td id="X|hq">[16, 20]</td><td id="J{SP">[1, 5, 10, 14, 16, 17, 18, 20]</td><td id="nmQ}"></td></tr><tr id="cc37bd3d-c110-476a-a570-9f6cb95837a9"><td id="vU&gt;u">10 - cup</td><td id="izH]">NO</td><td id="kAzX">[6, 20]</td><td id="X|hq">[4, 5, 6, 17, 20]</td><td id="J{SP">[2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 14, 15, 16, 17, 18, 19, 20]</td><td id="nmQ}"></td></tr><tr id="33c946d7-3264-4c68-b4c3-3cbfa0f08cee"><td id="vU&gt;u">11 - curtain</td><td id="izH]">F</td><td id="kAzX">[4, 5, 10]</td><td id="X|hq">[4, 5, 10, 19, 20]</td><td id="J{SP">[4, 5, 6, 7, 8, 9, 10, 11, 13, 15, 16, 17, 18, 19, 20]</td><td id="nmQ}"></td></tr><tr id="dc0dbfd1-245c-4481-a540-12363779d79f"><td id="vU&gt;u">12 - desk</td><td id="izH]">F</td><td id="kAzX">[2]</td><td id="X|hq">[2]</td><td id="J{SP">[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 16, 17, 18, 20]</td><td id="nmQ}"></td></tr><tr id="f3167b6a-b06a-4b0a-9172-a65d8fb4653e"><td id="vU&gt;u">13 - door</td><td id="izH]">F</td><td id="kAzX">[8, 15, 19]</td><td id="X|hq">[8, 10, 15, 16, 19]</td><td id="J{SP">[1, 2, 3, 4, 5, 7, 8, 9, 10, 12, 13, 14, 15, 16, 18, 19, 20]</td><td id="nmQ}"></td></tr><tr id="77c6caf5-270a-43f9-96de-66460d18838b"><td id="vU&gt;u">14 - dresser</td><td id="izH]">F</td><td id="kAzX">[9]</td><td id="X|hq">[9]</td><td id="J{SP">[1, 9, 19, 20]</td><td id="nmQ}"></td></tr><tr id="fec732b7-18ef-4fa2-8f79-906040362d6a"><td id="vU&gt;u">15 - flower_pot</td><td id="izH]">NO</td><td id="kAzX">[2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 17, 18, 19]</td><td id="X|hq">[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]</td><td id="J{SP">[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]</td><td id="nmQ}"></td></tr><tr id="c44e50c1-e557-48ea-bed9-a3491bf1695f"><td id="vU&gt;u">16 - glass_box</td><td id="izH]">NO</td><td id="kAzX">[6]</td><td id="X|hq">[6]</td><td id="J{SP">[1, 2, 6, 16, 17, 19, 20]</td><td id="nmQ}"></td></tr><tr id="429ecaa5-5955-45d7-93b1-33da45797d25"><td id="vU&gt;u">17 - guitar</td><td id="izH]">F</td><td id="kAzX">[6, 13, 14]</td><td id="X|hq">[2, 3, 4, 6, 7, 8, 10, 13, 14, 15, 16, 17, 18]</td><td id="J{SP">[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20]</td><td id="nmQ}"></td></tr><tr id="48b0588d-64b3-41f0-811b-07bdf06a99c5"><td id="vU&gt;u">18 - keyboard</td><td id="izH]">F</td><td id="kAzX">[2]</td><td id="X|hq">[2]</td><td id="J{SP">[2, 3, 5, 7, 8, 9, 11, 14, 17, 18]</td><td id="nmQ}"></td></tr><tr id="13040ee5-2fd5-453d-a197-5e9c13fdc29f"><td id="vU&gt;u">19 - lamp</td><td id="izH]">NO</td><td id="kAzX">[2, 3, 6, 7, 11, 12, 13, 16, 17, 18, 19, 20]</td><td id="X|hq">[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]</td><td id="J{SP">[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]</td><td id="nmQ}"></td></tr><tr id="2dd24896-3fc6-4510-8c02-49985ba9eaca"><td id="vU&gt;u">20 - laptop</td><td id="izH]">F</td><td id="kAzX">[12, 14]</td><td id="X|hq">[5, 12, 14]</td><td id="J{SP">[2, 3, 4, 5, 6, 7, 11, 12, 14, 16, 19]</td><td id="nmQ}"></td></tr><tr id="35b4c9cd-a33d-4ab6-885a-19630766d4cf"><td id="vU&gt;u">21 - mantel</td><td id="izH]">F</td><td id="kAzX">[18]</td><td id="X|hq">[3, 6, 7, 14, 18]</td><td id="J{SP">[3, 4, 6, 7, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]</td><td id="nmQ}"></td></tr><tr id="60e55db9-83ac-4ab9-86ae-c56b07936cd4"><td id="vU&gt;u">22 - monitor</td><td id="izH]">F</td><td id="kAzX">[9]</td><td id="X|hq">[9, 12, 19]</td><td id="J{SP">[2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19]</td><td id="nmQ}"></td></tr><tr id="595ee305-9c63-43d3-9d9d-8379a5fb0c1f"><td id="vU&gt;u">23 - night_stand</td><td id="izH]">F</td><td id="kAzX">[3, 12]</td><td id="X|hq">[2, 3, 7, 8, 10, 12, 15, 17, 18, 19]</td><td id="J{SP">[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]</td><td id="nmQ}"></td></tr><tr id="c7c8f16f-a00b-4372-88d0-0c9c899c00a5"><td id="vU&gt;u">24 - person</td><td id="izH]">F</td><td id="kAzX">[8, 15, 19]</td><td id="X|hq">[2, 3, 4, 5, 8, 12, 15, 16, 17, 19, 20]</td><td id="J{SP">[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]</td><td id="nmQ}"></td></tr><tr id="bb912af8-3086-4e9f-aa01-c617d05e0ad0"><td id="vU&gt;u">25 - piano</td><td id="izH]">F</td><td id="kAzX">[]</td><td id="X|hq">[]</td><td id="J{SP">[]</td><td id="nmQ}"></td></tr><tr id="e7b18b50-c5b7-4343-b0c6-a4474a09efe3"><td id="vU&gt;u">26 - plant</td><td id="izH]">NO</td><td id="kAzX">[1]</td><td id="X|hq">[1]</td><td id="J{SP">[1]</td><td id="nmQ}"></td></tr><tr id="f9893c5d-e862-4621-8529-f4404efec9bc"><td id="vU&gt;u">27 - radio</td><td id="izH]">F</td><td id="kAzX">[2]</td><td id="X|hq">[2]</td><td id="J{SP">[2, 5, 6, 7, 15]</td><td id="nmQ}"></td></tr><tr id="aa2c848b-ebbb-4143-961a-cdd387c233d1"><td id="vU&gt;u">28 - range_hood</td><td id="izH]">F</td><td id="kAzX">[2]</td><td id="X|hq">[1, 2]</td><td id="J{SP">[1, 2]</td><td id="nmQ}"></td></tr><tr id="04734ce4-3bc4-4eb2-9925-ef8a066d89ad"><td id="vU&gt;u">29 - sink</td><td id="izH]">F</td><td id="kAzX">[3, 10, 11]</td><td id="X|hq">[2, 3, 4, 5, 7, 9, 10, 11, 19]</td><td id="J{SP">[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]</td><td id="nmQ}"></td></tr><tr id="b3eb9b99-4e89-4355-bf55-9edd2de6a088"><td id="vU&gt;u">30 - sofa</td><td id="izH]">F</td><td id="kAzX">[9]</td><td id="X|hq">[2, 9]</td><td id="J{SP">[1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 20]</td><td id="nmQ}"></td></tr><tr id="6d831e69-9f40-45b6-b5f1-feb39e26fd9f"><td id="vU&gt;u">31 - stairs</td><td id="izH]">F</td><td id="kAzX">[2, 6]</td><td id="X|hq">[2, 6]</td><td id="J{SP">[2, 3, 6, 10]</td><td id="nmQ}"></td></tr><tr id="a9a32174-9e23-4c16-9846-493f917d52a5"><td id="vU&gt;u">32 - stool</td><td id="izH]">F</td><td id="kAzX">[1, 6]</td><td id="X|hq">[1, 6]</td><td id="J{SP">[1, 6]</td><td id="nmQ}"></td></tr><tr id="c7f46a00-311b-48c5-932a-1be08bd3b401"><td id="vU&gt;u">33 - table</td><td id="izH]">F</td><td id="kAzX">[3]</td><td id="X|hq">[3]</td><td id="J{SP">[2, 3, 4, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]</td><td id="nmQ}"></td></tr><tr id="da3b2674-eeb1-4375-bc08-e230e0d296d5"><td id="vU&gt;u">34 - tent</td><td id="izH]">F</td><td id="kAzX">[2]</td><td id="X|hq">[2]</td><td id="J{SP">[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]</td><td id="nmQ}"></td></tr><tr id="a8b57178-39db-442f-975f-87269f70ffc7"><td id="vU&gt;u">35 - toilet</td><td id="izH]">F</td><td id="kAzX">[6]</td><td id="X|hq">[6]</td><td id="J{SP">[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]</td><td id="nmQ}"></td></tr><tr id="195f1901-1e32-4681-83d2-95f7b86cb655"><td id="vU&gt;u">36 - tv_stand</td><td id="izH]">F</td><td id="kAzX">[2]</td><td id="X|hq">[2]</td><td id="J{SP">[2, 3, 4, 5, 6, 7, 11, 12, 13, 15, 16, 17, 18, 19, 20]</td><td id="nmQ}"></td></tr><tr id="9026acdc-9411-4994-91cb-b289e7b8beb3"><td id="vU&gt;u">37 - vase</td><td id="izH]">NO</td><td id="kAzX">[3, 7, 8, 9, 11, 12, 14, 16, 17, 18, 19, 20]</td><td id="X|hq">[3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]</td><td id="J{SP">[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]</td><td id="nmQ}"></td></tr><tr id="802d19b0-cf6f-4d52-9501-30dad4c51cce"><td id="vU&gt;u">38 - wardrobe</td><td id="izH]">F</td><td id="kAzX">[7]</td><td id="X|hq">[7]</td><td id="J{SP">[3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]</td><td id="nmQ}"></td></tr><tr id="4fa115cd-3f95-4fab-abeb-4a381a5f6cba"><td id="vU&gt;u">39 - xbox</td><td id="izH]">F</td><td id="kAzX">[2, 13]</td><td id="X|hq">[2, 7, 9, 10, 13]</td><td id="J{SP">[2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 15, 17, 19]</td><td id="nmQ}"></td></tr></tbody></table><hr id="8385b659-a05f-4203-8111-324181cdec6e"/><h2 id="a75c14ef-e10b-42c0-a20f-66130eee32b9" class="">Table 2. Basic Extraction</h2><table id="cbbc1229-8f79-4b7c-a66f-f61db3441b24" class="simple-table"><tbody><tr id="3e2cb6a9-053d-4a4c-a001-4ab4acc85c12"><td id="LeJo">Threshold</td><td id="OWTy">top_3</td></tr><tr id="3df098a9-bb53-4e4a-a23c-8c14418c33e5"><td id="LeJo">&gt;0.75</td><td id="OWTy">2,6,12</td></tr><tr id="5b45c8b3-ee58-4b18-b999-92770867f4e2"><td id="LeJo">&gt;0.5</td><td id="OWTy">2,6,9</td></tr></tbody></table></div></article></body></html>
